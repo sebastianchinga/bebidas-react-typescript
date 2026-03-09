@@ -2,7 +2,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, type JSX } from 'react';
 import { useAppStore } from '../stores/useAppStore';
 import type { Recipe } from '../types';
-import { pick } from 'zod/mini';
 
 export default function Modal() {
     const { modal, closeModal, selectedRecipe, handleClickFavorite, favoriteExists } = useAppStore();
