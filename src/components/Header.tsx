@@ -8,7 +8,7 @@ export default function Header() {
         category: ''
     });
     const { pathname } = useLocation();
-    const { fetchCategories, categories, searchRecipes } = useAppStore();
+    const { fetchCategories, categories, searchRecipes, showNotification } = useAppStore();
 
     const isHome = useMemo(() => pathname === '/', [pathname])
 
@@ -28,7 +28,7 @@ export default function Header() {
 
         // Validar
         if (Object.values(searchFilters).includes('')) {
-            console.log('Todos los campos son necesarios');
+            showNotification({text: 'Completa los campos', error: true})
             return;
         }
 
