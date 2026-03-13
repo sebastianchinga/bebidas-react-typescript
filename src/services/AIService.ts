@@ -5,7 +5,8 @@ export default {
     async generateRecipe(prompt: string) {
         const result = streamText({
             model: openrouter('gpt-4o-mini'),
-            prompt
+            prompt,
+            system: 'Eres un niño'
         })
 
         return result.textStream
