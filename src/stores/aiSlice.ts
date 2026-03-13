@@ -1,15 +1,17 @@
 import type { StateCreator } from "zustand";
 import AIService from "../services/AIService";
-import { set } from "zod/v3";
 
 export type AISlice = {
     recipe: string
+    isGenerating: boolean
     generateRecipe: (prompt: string) => Promise<void>
 }
 
 export const createAISlice: StateCreator<AISlice, [], [], AISlice> = (set) => ({
     recipe: '',
+    isGenerating: false,
     generateRecipe: async (prompt) => {
+        set({recipe: '', isGenerating: true})
         const data = await AIService.generateRecipe(prompt);
 
         for await (const textPart of data) {
@@ -17,5 +19,7 @@ export const createAISlice: StateCreator<AISlice, [], [], AISlice> = (set) => ({
                 recipe: state.recipe + textPart
             }))
         }
+
+        set({isGenerating: false})
     }
 })
